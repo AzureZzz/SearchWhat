@@ -5,8 +5,6 @@ import os
 import pandas as pd
 import random
 
-from PIL import Image
-from tqdm import tqdm
 from config import *
 from flask import Flask, render_template,request
 from models import get_model
