@@ -1,0 +1,392 @@
+﻿<!doctype html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Home</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+
+    <!-- Include CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="../static/owl-carousel/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="../static/owl-carousel/owl.transitions.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/fileinput.min.css">
+</head>
+
+<body>
+
+<!-- Loader -->
+<div id="loader" class="loader">
+    <div class="loader-content">
+        <img src="../static/images/loader.png" alt="Loading...">
+    </div>
+</div>
+
+<!-- Principal image with search -->
+<div class="full-header">
+    <div class="overlay"></div>
+    <div class="search">
+        <form action="search" method="post" enctype="multipart/form-data">
+            <input type="text" placeholder="Image URL..." class="principal-search">
+            <button type="submit" class="principal-search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <button id="upload" type="button" class="principal-search-btn" onclick="$('#upload-file').click();"><i class="fa fa-upload" aria-hidden="true"></i></button>
+            <input type="file" name="upload_img" id="upload-file" style="display: none;" onchange="fileType(this)"/>
+        </form>
+    </div>
+    <div class="bottom-text">
+        Search what search!
+    </div>
+</div>
+
+<!-- Page container -->
+<div class="inner-content-home">
+    <div class="container">
+
+        <div class="row margin-bottom-20">
+            <!-- Top categories -->
+            <div class="col-sm-12">
+                <h4 class="title">Best result</h4>
+                <div class="line-dec"></div>
+                <!-- Top categories slider -->
+                <div id="carousel-example-generic" class="carousel" data-ride="carousel">
+                    <!-- Top categories slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <!-- Top categories (item) -->
+                        <div class="item active">
+                            <img id="xxx" src="{{ best_res }}">
+{#                            <div class="carousel-caption">#}
+{#                                Demo label#}
+{#                            </div>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tip of the day column -->
+{#            <div class="col-sm-3">#}
+{#                <h4 class="title">Model Info</h4>#}
+{#                <div class="line-dec"></div>#}
+{##}
+{#                <!-- Tip of the day -->#}
+{#                <div class="thumbnail">#}
+{#                    <img src="../static/images/tip.jpeg.jpg" alt="Tip of the day">#}
+{#                    <div class="caption">#}
+{#                        <span>Model mAP:0.81</span>#}
+{#                        Precision:xxx#}
+{#                        Recell:xxx#}
+{#                        Search Time:1.0s#}
+{#                        Result Number: 5#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+
+        <!-- Information row -->
+        		<div class="row">
+
+        			<!-- Discount alert -->
+        			<div class="col-sm-8">
+        				<div class="alert alert-warning" role="alert">Images Number:<b>5</b>&nbsp; Used Time:<b>1.5s</b></div>
+        			</div>
+
+        			<!-- Register button -->
+        			<div class="col-sm-4">
+        				<button type="submit" class="btn btn-block btn-success register-btn">Refresh</button>
+        			</div>
+        		</div>
+
+        <!-- Recent photos row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="title">Top Results</h4>
+                <div class="line-dec"></div>
+
+                <!-- Recent photos carousel -->
+                <div id="recent-photos">
+                    <!-- Recent photo (item) -->
+                    <div class="item" style="background-image: url('{{ top4_res[0] }}')">
+                        <!-- Price ribbon -->
+{#                        <div class="ribbon"><span>60%</span></div>#}
+                    </div>
+
+                    <!-- Recent photo (item) -->
+                    <div class="item" style="background-image: url('{{ top4_res[1] }}')">
+                        <!-- Price ribbon -->
+{#                        <div class="ribbon"><span>60%</span></div>#}
+                    </div>
+
+                    <!-- Recent photo (item) -->
+                    <div class="item" style="background-image: url('{{ top4_res[2] }}')">
+                        <!-- Price ribbon -->
+{#                        <div class="ribbon"><span>60%</span></div>#}
+                    </div>
+
+                    <!-- Recent photo (item) -->
+                    <div class="item" style="background-image: url('{{ top4_res[3] }}')">
+                        <!-- Price ribbon -->
+{#                        <div class="ribbon"><span>60%</span></div>#}
+                    </div>
+{##}
+{#                    <!-- Recent photo (item) -->#}
+{#                    <div class="item" id="photo_5">#}
+{#                        <div class="ribbon"><span>60%</span></div>#}
+{#                    </div>#}
+{##}
+{#                    <!-- Recent photo (item) -->#}
+{#                    <div class="item" id="photo_6">#}
+{#                        <!-- Price ribbon -->#}
+{#                        <div class="ribbon"><span>60%</span></div>#}
+{#                    </div>#}
+{##}
+{#                    <!-- Recent photo (item) -->#}
+{#                    <div class="item" id="photo_7">#}
+{#                        <!-- Price ribbon -->#}
+{#                        <div class="ribbon"><span>60%</span></div>#}
+{#                    </div>#}
+{##}
+{#                    <!-- Recent photo (item) -->#}
+{#                    <div class="item" id="photo_8">#}
+{#                        <!-- Price ribbon -->#}
+{#                        <div class="ribbon"><span>60%</span></div>#}
+{#                    </div>#}
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="row">
+            <div class="col-sm-12" id="#categories">
+                <h4 class="title">Other Results <small><span class="badge">12</span> images</small>
+                </h4>
+                <div class="line-dec"></div>
+            </div>
+        </div>
+
+                <div class="row">
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[0]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[1]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[2]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[3]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+        </div>
+                <div class="row">
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[4]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[5]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[6]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[7]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+        </div>
+                <div class="row">
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[8]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[9]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[10]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="category-block" style="background-image: url('{{other_res[11]}}')">
+                    <a href="#">
+{#                        <span>Demo label</span>#}
+                    </a>
+                </div>
+            </div>
+
+        </div>
+{#        <div class="row">#}
+{##}
+{#            <div class="col-sm-6">#}
+{#                <div class="category-block" id="people">#}
+{#                    <a href="#">#}
+{#                        <span>People</span>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="col-sm-6">#}
+{#                <div class="category-block" id="music">#}
+{#                    <a href="#">#}
+{#                        <span>Music</span>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{##}
+{#        <div class="row">#}
+{##}
+{#            <div class="col-sm-6">#}
+{#                <div class="category-block" id="technology">#}
+{#                    <a href="#">#}
+{#                        <span>Technology</span>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="col-sm-3">#}
+{#                <div class="category-block" id="houses">#}
+{#                    <a href="#">#}
+{#                        <span>Houses</span>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="col-sm-3">#}
+{#                <div class="category-block" id="pets">#}
+{#                    <a href="#">#}
+{#                        <span>Pets</span>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{##}
+{#        <div class="row">#}
+{##}
+{#            <div class="col-sm-3">#}
+{#                <div class="category-block" id="animals">#}
+{#                    <a href="#">#}
+{#                        <span>Animals</span>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="col-sm-3">#}
+{#                <div class="category-block" id="random">#}
+{#                    <a href="#">#}
+{#                        <span>Random</span>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="col-sm-6">#}
+{#                <div class="category-block" id="others">#}
+{#                    <a href="#">#}
+{#                        <span>Others</span>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="container">
+    <div id="footer">
+        <div class="row" style="text-align: center">
+            <p>Image Search.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Include Scripts -->
+<script type="text/javascript" src="../static/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../static/js/fileinput.min.js"></script>
+<script type="text/javascript" src="../static/owl-carousel/owl.carousel.min.js"></script>
+<script type="text/javascript" src="../static/js/main.js"></script>
+<script>
+    function fileType(obj){
+        var fileType=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
+        if(fileType != '.gif' && fileType != '.png' && fileType != '.jpg' && fileType != '.jpeg'){
+            alert('请上传图片格式的文件!')
+        }
+        {#else{#}
+        {#     var reader = new FileReader();#}
+        {#     alert(obj.files[0]);#}
+        {#     reader.readAsDataURL(obj.files[0]);#}
+        {#     reader.onload = function (e) {#}
+        {#         $("#upload-img").attr("src",this.result);#}
+        {#     }#}
+        {#}#}
+    }
+</script>
+</body>
+</html>
