@@ -11,14 +11,12 @@ from models import get_model
 from utils import get_img_tensor, show_net_structure, cosin_features,toTensor_operator,normalize_operator
 from sklearn.metrics.pairwise import cosine_similarity
 
-
 app = Flask(__name__, template_folder='templates', static_folder="static")
-
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = get_model(model_name, device, vector_len)
-vectors = np.load(f'{vector_path}/{dataset}/vectors.npy')
-df = pd.read_csv(f'{vector_path}/{dataset}/names.csv')
+vectors = np.load(f'{vector_path}/{dataset}_{model_name}/vectors.npy')
+df = pd.read_csv(f'{vector_path}/{dataset}_{model_name}/names.csv')
 names = df['names'].to_list()
 image_names = os.listdir('static/dataset/oxbuild/')
 n = len(image_names)
@@ -37,14 +35,16 @@ def search():
     img.to(device)
     vector = model(img).cpu().detach().numpy()
     # sims = []
-    dists = []
-    for v in vectors:
-        # sims.append(cosin_features(vector[0], v))
-        dists.append(np.linalg.norm(vector[0] - v))
-    # res = [(name, sim) for (name, sim) in zip(names, sims)]
+    sims = cosine_similarity(vector, vectors)
+    res = [(name, sim) for (name, sim) in zip(names, list(sims[0]))]
+    # dists = []
+    # for v in vectors:
+    #     # sims.append(cosin_features(vector[0], v))
+    #     dists.append(np.linalg.norm(vector[0] - v))
     # res.sort(key=lambda x: x[1], reverse=True)
-    res = [(name, dist) for (name, dist) in zip(names, dists)]
-    res.sort(key=lambda x: x[1])
+    # res = [(name, dist) for (name, dist) in zip(names, dists)]
+    res.sort(key=lambda x: x[1], reverse=True)
+    print(res)
     best_res = f'static/dataset/oxbuild/{res[0][0]}'
     top4_res = []
     other_res = []
