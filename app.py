@@ -67,9 +67,9 @@ def search():
     best_res = f'static/dataset/oxbuild/{res[0][0]}'
     top4_res = []
     other_res = []
-    for i in range(1,5):
+    for i in range(1, 5):
         top4_res.append(res[i][0])
-    for i in range(5,17):
+    for i in range(5, 17):
         other_res.append(res[i][0])
     top4_res = [f'static/dataset/oxbuild/{x}' for x in top4_res]
     other_res = [f'static/dataset/oxbuild/{x}' for x in other_res]
