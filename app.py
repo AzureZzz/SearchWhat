@@ -24,23 +24,6 @@ image_names = os.listdir('static/dataset/oxbuild/')
 n = len(image_names)
 
 
-def compute():
-    img = get_img_tensor('dataset/oxbuild/all_souls_000002.jpg', device)
-    vector = model(img).cpu().detach().numpy()
-    # sims = cosine_similarity(vector, vectors)
-    # print(sims)
-    # dists = []
-    sims = []
-    for v in vectors:
-        sims.append(cosin_features(vector[0], v))
-        # dists.append(np.linalg.norm(vector[0] - v))
-    # print(dists)
-    # print(sims)
-    res = [(name, sim) for (name, sim) in zip(names, sims)]
-    res.sort(key=lambda x: x[1], reverse=True)
-    print(res)
-
-
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     img_file = request.files.get('upload_img')
