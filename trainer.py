@@ -9,7 +9,8 @@ from torch import nn
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 from utils import AverageMeter, char_color
-from torchvision.transforms import *
+from torchvision import transforms
+
 # from albumentations import (
 #     HorizontalFlip, VerticalFlip, Transpose, HueSaturationValue, RandomResizedCrop,
 #     RandomBrightnessContrast, Compose, Normalize, CoarseDropout, ShiftScaleRotate, CenterCrop, Resize
@@ -118,16 +119,6 @@ class Trainer(object):
         return accs.avg
 
 
-def seed_everything(seed):
-    random.seed(seed)
-    os.environ["PYTHONHASHSEED"] = str(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed(seed)
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = True
-
 
 def get_logging():
     logging.basicConfig(
@@ -149,7 +140,7 @@ def get_args():
     parser.add_argument('--classes', type=int, default=5)
     parser.add_argument('--img_size', type=int, default=512)
     parser.add_argument('--epochs', type=int, default=50)
-    parser.add_argument('--batch_size', type=int, default=16)
+    parser.add_argument('--batch_size', type=int, default=4)
     parser.add_argument('--batch_size_val', type=int, default=32)
     parser.add_argument('--val_epoch', type=int, default=2)
     parser.add_argument('--save_model_epoch', type=int, default=20)
@@ -173,22 +164,22 @@ def main():
     if not os.path.exists(args.tensorboard_dir):
         os.makedirs(args.tensorboard_dir)
     logging = get_logging()
-    seed_everything(args.seed)
 
-    transforms_train = Compose([
-        Resize(args.img_size, args.img_size),
-        Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ToTensor()
+
+    transforms_train = transforms.Compose([
+        transforms.Resize((args.img_size, args.img_size)),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])  # 3通道
     ])
-    transforms_val = Compose([
-        Resize(args.img_size, args.img_size),
-        Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ToTensor()
+    transforms_val = transforms.Compose([
+        transforms.Resize((args.img_size, args.img_size)),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])  # 3通道
     ])
 
     train_loader, val_loader = get_dataset(args.data_path, args.batch_size, args.batch_size_val, transforms_train,
                                            transforms_val)
-    net = get_model('EfficientNet', device, 500)
+    net = get_model('ResNet50', device, 500)
 
     trainer = Trainer(net, train_loader, val_loader, args, device, logging)
     trainer.train()

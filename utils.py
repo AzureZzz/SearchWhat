@@ -50,7 +50,8 @@ def get_img_tensor(path, device):
     img = cv2.resize(img, image_size)
     b, g, r = cv2.split(img)
     img = cv2.merge([r, g, b])
-    img = normalize_operator(toTensor_operator(img)).float().cuda()
+    # img = normalize_operator(toTensor_operator(img)).float().cuda()
+    img = toTensor_operator(img).float().cuda()
     img = img.unsqueeze(0)
     return img.to(device)
 

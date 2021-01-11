@@ -11,14 +11,14 @@ from utils import get_img_tensor
 
 if __name__ == '__main__':
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = get_model(model_name, device, vector_len)
+    model = get_model(model_name, device)
 
     image_list = os.listdir(f'static/dataset/{dataset}')
     vectors = []
     for image in tqdm(image_list):
         img = get_img_tensor(f'static/dataset/{dataset}/{image}', device)
         v = model(img)
-        vectors.append(v.cpu().detach().numpy()[0])
+        vectors.append(v.cpu().detach().numpy())
 
     print(vectors[0].shape)
     save_path = f'{vector_path}/{dataset}_{model_name}'

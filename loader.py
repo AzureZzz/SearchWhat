@@ -15,7 +15,7 @@ class MyDataset(Dataset):
 
     def _get_data_list(self, path, mode):
         df = pd.read_csv(os.path.join(path, 'holiday_label.csv'))
-        print(df.keys())
+        # print(df.keys())
         data_list = [(x, y) for (x, y) in zip(df[df.keys()[0]], df[df.keys()[1]])]
         # data_list = shuffle(data_list)
         train_list, val_list = train_test_split(data_list, test_size=0.3, random_state=41)
@@ -28,10 +28,7 @@ class MyDataset(Dataset):
         img_name = self.data_list[idx][0]
         label = self.data_list[idx][1]
         image = Image.open(os.path.join(self.img_path, img_name)).convert('RGB')
-        image = np.array(image)
-        if self.transforms:
-            transformed = self.transforms(image=image)
-            image = transformed['image']
+        image = self.transforms(image)
         return image, label
 
     def __len__(self):
