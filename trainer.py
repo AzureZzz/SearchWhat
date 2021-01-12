@@ -20,6 +20,7 @@ from torchvision import transforms
 
 from loader import get_dataset
 from models import get_model
+from utils import show_net_structure
 
 
 class Trainer(object):
@@ -82,7 +83,7 @@ class Trainer(object):
                     if self.args.save_path:
                         if not os.path.exists(self.args.save_path):
                             os.makedirs(self.args.save_path)
-                        torch.save(self.model.state_dict(), f'{self.args.save_path}/best_model.pth')
+                        torch.save(self.model.state_dict(), f'{self.args.save_path}/best_{self.args.task}_model.pth')
                         self.logging.info(char_color(f'best model saved !', word=33))
 
                 self.logging.info(f'acc: {acc}')
@@ -134,7 +135,7 @@ def get_args():
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--folds', type=int, default=10)
 
-    parser.add_argument('--task', type=str, default='task1')
+    parser.add_argument('--task', type=str, default='EfficientNet')
     parser.add_argument('--action', type=str, default='train')
 
     parser.add_argument('--classes', type=int, default=5)
@@ -179,7 +180,9 @@ def main():
 
     train_loader, val_loader = get_dataset(args.data_path, args.batch_size, args.batch_size_val, transforms_train,
                                            transforms_val)
-    net = get_model('ResNet50', device, 500)
+    net = get_model('EfficientNet', device, True, 500)
+    if os.path.exists(f'{args.save_path}/best_{args.task}_model.pth'):
+        net.load_state_dict(torch.load(f'{args.save_path}/best_{args.task}_model.pth'))
 
     trainer = Trainer(net, train_loader, val_loader, args, device, logging)
     trainer.train()

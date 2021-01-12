@@ -8,7 +8,7 @@ import random
 from config import *
 from flask import Flask, render_template, request
 from models import get_model
-from utils import get_img_tensor, show_net_structure, cosin_features,toTensor_operator,normalize_operator
+from utils import toTensor_operator, normalize_operator
 from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__, template_folder='templates', static_folder="static")
@@ -21,10 +21,6 @@ names = df['names'].to_list()
 image_names = os.listdir(f'static/dataset/{dataset}/')
 n = len(image_names)
 
-def cos(A,B):
-    cos_dis = np.sum(A * B, axis=1) / (np.sqrt(np.sum(A ** 2, axis=1)) * np.sqrt(np.sum(B ** 2, axis=1)))
-    return cos_dis
-
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -34,27 +30,13 @@ def search():
     img = cv2.resize(img, image_size)
     b, g, r = cv2.split(img)
     img = cv2.merge([r, g, b])
-    # img = normalize_operator(toTensor_operator(img)).float().cuda()
-    
-    img = toTensor_operator(img).float().cuda()
+    img = normalize_operator(toTensor_operator(img)).float().cuda()
     img = img.unsqueeze(0)
     img.to(device)
     vector = model(img).cpu().detach().numpy()
     vector = np.array([vector])
-    sims = cos(vector, vectors)
-    # for v in vectors:
-    #     sims.append(cos(vector,v))
-    # vector = np.array([vector])
-    # sims = []
-    # sims = cosine_similarity(vector, vectors)
-    # res = [(name, sim) for (name, sim) in zip(names, list(sims[0]))]
+    sims = cosine_similarity(vector, vectors)
     res = [(name, sim) for (name, sim) in zip(names, sims)]
-    # dists = []
-    # for v in vectors:
-    #     # sims.append(cosin_features(vector[0], v))
-    #     dists.append(np.linalg.norm(vector[0] - v))
-    # res.sort(key=lambda x: x[1], reverse=True)
-    # res = [(name, dist) for (name, dist) in zip(names, dists)]
     res.sort(key=lambda x: x[1], reverse=True)
     print(res)
     best_res = f'static/dataset/{dataset}/{res[0][0]}'
