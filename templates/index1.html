@@ -33,20 +33,20 @@
 </div>
 
 <!-- Principal image with search -->
-<div class="full-header" style="background-image:url('static/images/index2.jpg'); height: 640px;">
+<div class="full-header" style="background-image:url('static/images/index3.jpg');height: 820px;">
     <div class="overlay"></div>
     <div class="search">
         <form action="search" method="post" enctype="multipart/form-data">
-            <input type="text" placeholder="Image URL..." class="principal-search">
-            <button type="submit" class="principal-search-btn" style="background-color: #434072;" ><i class="fa fa-search" aria-hidden="true"></i></button>
-            <button id="upload" type="button" class="principal-search-btn" style="background-color: #434072;"  onclick="$('#upload-file').click();"><i
+            <button id="upload" type="button" class="principal-search-btn" style="background-color: #065c5c;" onclick="$('#upload-file').click();"><i
                     class="fa fa-upload" aria-hidden="true"></i></button>
+            <input type="text" placeholder="Input..." class="principal-search">
+            <button type="submit" class="principal-search-btn" style="background-color: #065c5c;" ><i class="fa fa-search" aria-hidden="true"></i></button>
             <input type="file" name="upload_img" id="upload-file" style="display: none;" onchange="fileType(this)"/>
         </form>
     </div>
-    <div class="bottom-text">
-        Search what search!
-    </div>
+{#    <div class="bottom-text">#}
+{#        Search what search!#}
+{#    </div>#}
 </div>
 
 <!-- Page container -->

@@ -4,6 +4,7 @@ import cv2
 import os
 import pandas as pd
 import random
+import time
 
 from config import *
 from flask import Flask, render_template, request
@@ -33,49 +34,52 @@ def search():
     img = normalize_operator(toTensor_operator(img)).float().cuda()
     img = img.unsqueeze(0)
     img.to(device)
+    start = time.time()
     vector = model(img).cpu().detach().numpy()
     vector = np.array([vector])
     sims = cosine_similarity(vector, vectors)
-    res = [(name, sim) for (name, sim) in zip(names, sims)]
+    res = [(name, sim) for (name, sim) in zip(names, list(sims[0]))]
     res.sort(key=lambda x: x[1], reverse=True)
+    end = time.time()
     print(res)
-    best_res = f'static/dataset/{dataset}/{res[0][0]}'
+    best_res = (f'static/dataset/{dataset}/{res[0][0]}', res[0][1])
     top4_res = []
     other_res = []
     for i in range(1, 5):
-        top4_res.append(res[i][0])
+        top4_res.append(res[i])
     for i in range(5, 17):
-        other_res.append(res[i][0])
-    top4_res = [f'static/dataset/{dataset}/{x}' for x in top4_res]
-    other_res = [f'static/dataset/{dataset}/{x}' for x in other_res]
-    return render_template('index.html', best_res=best_res, top4_res=top4_res, other_res=other_res)
+        other_res.append(res[i])
+    top4_res = [(f'static/dataset/{dataset}/{x[0]}', x[1]) for x in top4_res]
+    other_res = [(f'static/dataset/{dataset}/{x[0]}', x[1]) for x in other_res]
+    return render_template('index1.html', best_res=best_res, top4_res=top4_res, other_res=other_res,
+                           use_time=end - start)
 
 
 @app.route('/')
 def index():
-    best_res = f'static/dataset/{dataset}/{image_names[random.randint(0,n)]}'
-    top4_res = []
-    other_res = []
-    for i in range(1, 5):
-        top4_res.append(image_names[random.randint(0,n)])
-    for i in range(5, 17):
-        other_res.append(image_names[random.randint(0,n)])
-    top4_res = [f'static/dataset/{dataset}/{x}' for x in top4_res]
-    other_res = [f'static/dataset/{dataset}/{x}' for x in other_res]
-    return render_template('index.html', best_res=best_res, top4_res=top4_res, other_res=other_res)
-
-
-@app.route('/index')
-def index1():
-    best_res = f'static/dataset/{dataset}/{image_names[random.randint(0, n)]}'
+    best_res = (f'static/dataset/{dataset}/{image_names[random.randint(0, n)]}',0)
     top4_res = []
     other_res = []
     for i in range(1, 5):
         top4_res.append(image_names[random.randint(0, n)])
     for i in range(5, 17):
         other_res.append(image_names[random.randint(0, n)])
-    top4_res = [f'static/dataset/{dataset}/{x}' for x in top4_res]
-    other_res = [f'static/dataset/{dataset}/{x}' for x in other_res]
+    top4_res = [(f'static/dataset/{dataset}/{x}',0) for x in top4_res]
+    other_res = [(f'static/dataset/{dataset}/{x}',0) for x in other_res]
+    return render_template('index1.html', best_res=best_res, top4_res=top4_res, other_res=other_res)
+
+
+@app.route('/index')
+def index1():
+    best_res = (f'static/dataset/{dataset}/{image_names[random.randint(0, n)]}',0)
+    top4_res = []
+    other_res = []
+    for i in range(1, 5):
+        top4_res.append(image_names[random.randint(0, n)])
+    for i in range(5, 17):
+        other_res.append(image_names[random.randint(0, n)])
+    top4_res = [(f'static/dataset/{dataset}/{x}',0) for x in top4_res]
+    other_res = [(f'static/dataset/{dataset}/{x}',0) for x in other_res]
     return render_template('index.html', best_res=best_res, top4_res=top4_res, other_res=other_res)
 
 

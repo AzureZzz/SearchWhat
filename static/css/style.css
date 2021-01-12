@@ -219,7 +219,7 @@ a:focus {
 }
 
 .carousel-inner .item {
-	height: 500px;
+	/*height: 500px;*/
 	overflow: hidden;
 }
 
@@ -233,13 +233,11 @@ a:focus {
 
 .full-header {
 	width: 100%;
-	height: 640px;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-attachment: fixed;
 	position: relative;
-	background-image:url('../images/index2.jpg')
 }
 
 .full-header .overlay {
@@ -286,7 +284,6 @@ a:focus {
 }
 
 .principal-search-btn {
-	background-color: #434072;
 	color: #fff;
 	border: none;
 	margin-left: -3px;
@@ -328,41 +325,9 @@ p.description small {
 
 #recent-photos .item {
 	margin: 3px;
-	height: 180px;
-	width: 279px;
+	height: 360px;
+	width: 560px;
 	background-size: cover;
-}
-
-.owl-item > #photo_1 {
-	background-image: url('../images/recent-photos/1.jpeg');
-}
-
-.owl-item > #photo_2 {
-	background-image: url('../images/recent-photos/2.jpg');
-}
-
-.owl-item > #photo_3 {
-	background-image: url('../images/recent-photos/3.jpeg');
-}
-
-.owl-item > #photo_4 {
-	background-image: url('../images/recent-photos/4.jpeg');
-}
-
-.owl-item > #photo_5 {
-	background-image: url('../images/recent-photos/5.jpeg');
-}
-
-.owl-item > #photo_6 {
-	background-image: url('../images/recent-photos/6.jpeg');
-}
-
-.owl-item > #photo_7 {
-	background-image: url('../images/recent-photos/7.jpeg');
-}
-
-.owl-item > #photo_8 {
-	background-image: url('../images/recent-photos/8.jpeg');
 }
 
 .ribbon {
@@ -460,54 +425,6 @@ p.description small {
 	padding: 7px 20px;
 	background-color: #FFF;
 	color: #333;
-}
-
-#architecture {
-	background-image: url('../images/categories/architecture.jpeg');
-}
-
-#food {
-	background-image: url('../images/categories/food.jpg');
-}
-
-#cars {
-	background-image: url('../images/categories/cars.jpg');
-}
-
-#landscapes {
-	background-image: url('../images/categories/landscapes.jpeg');
-}
-
-#people {
-	background-image: url('../images/categories/people.jpg');
-}
-
-#music {
-	background-image: url('../images/categories/music.jpeg');
-}
-
-#technology {
-	background-image: url('../images/categories/technology.jpeg');
-}
-
-#houses {
-	background-image: url('../images/categories/houses.jpeg');
-}
-
-#pets {
-	background-image: url('../images/categories/pets.jpg');
-}
-
-#animals {
-	background-image: url('../images/categories/animals.jpeg');
-}
-
-#random {
-	background-image: url('../images/categories/random.jpeg');
-}
-
-#others {
-	background-image: url('../images/categories/others.jpg');
 }
 
 #footer {
